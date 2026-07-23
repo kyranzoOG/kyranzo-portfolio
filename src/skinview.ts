@@ -95,18 +95,44 @@ function enableViewerControls(viewer: any) {
   }
 }
 
+// Helper to resolve skin file URLs correctly relative to current page location
+function getSkinUrl(filename: string): string {
+  if (!filename) return createKyranzoSkinPNG();
+  if (filename.startsWith('data:')) return filename;
+
+  const cleanName = filename.replace(/^\//, '');
+  const pathname = window.location.pathname;
+  const isSubdir = pathname.includes('/avatars') || pathname.includes('/connections');
+  return isSubdir ? `../${cleanName}` : `./${cleanName}`;
+}
+
 // Auto-initialize index gateway viewer if element present
 function initGatewayViewer() {
   const canvas = document.getElementById('gateway-skin-canvas') as HTMLCanvasElement | null;
   if (!canvas) return;
 
   try {
+    const parent = canvas.parentElement;
+    const initialWidth = parent?.clientWidth || 320;
+    const initialHeight = parent?.clientHeight || 400;
+
+    const primarySkin = getSkinUrl('minecraft.png');
+    const fallbackSkin = createKyranzoSkinPNG();
+
     const viewer = new skinview3d.SkinViewer({
       canvas: canvas,
-      width: canvas.parentElement?.clientWidth || 320,
-      height: canvas.parentElement?.clientHeight || 400,
-      skin: '/minecraft.png'
+      width: initialWidth,
+      height: initialHeight,
+      skin: primarySkin
     });
+
+    // Handle skin loading failure by falling back to procedural Kyranzo skin
+    if (typeof viewer.loadSkin === 'function') {
+      viewer.loadSkin(primarySkin).catch(() => {
+        console.warn('Primary skin load failed, applying fallback skin.');
+        viewer.loadSkin(fallbackSkin);
+      });
+    }
 
     enableViewerControls(viewer);
     viewer.autoRotate = false;
@@ -114,12 +140,21 @@ function initGatewayViewer() {
 
     const handleResize = () => {
       if (canvas.parentElement) {
-        viewer.width = canvas.parentElement.clientWidth;
-        viewer.height = canvas.parentElement.clientHeight;
+        const w = canvas.parentElement.clientWidth;
+        const h = canvas.parentElement.clientHeight;
+        if (w > 0 && h > 0) {
+          if (typeof viewer.setSize === 'function') {
+            viewer.setSize(w, h);
+          } else {
+            viewer.width = w;
+            viewer.height = h;
+          }
+        }
       }
     };
     window.addEventListener('resize', handleResize);
-    setTimeout(handleResize, 150);
+    setTimeout(handleResize, 100);
+    setTimeout(handleResize, 500);
   } catch (err) {
     console.error('Failed to init gateway skin viewer:', err);
   }
@@ -133,17 +168,31 @@ function initMinecraftViewers() {
   const javaCanvas = document.getElementById('java-skin-canvas');
   if (!javaCanvas) return; // Not on minecraft page
 
-  const setup = (id: string, animType: string, skinUrl: string) => {
+  const setup = (id: string, defaultSkinFile: string) => {
     const canvas = document.getElementById(`${id}-skin-canvas`) as HTMLCanvasElement | null;
     if (!canvas) return;
 
     try {
+      const parent = canvas.parentElement;
+      const initialWidth = parent?.clientWidth || 320;
+      const initialHeight = parent?.clientHeight || 380;
+
+      const primarySkin = getSkinUrl(defaultSkinFile);
+      const fallbackSkin = createKyranzoSkinPNG();
+
       const viewer = new skinview3d.SkinViewer({
         canvas: canvas,
-        width: canvas.parentElement?.clientWidth || 320,
-        height: canvas.parentElement?.clientHeight || 380,
-        skin: skinUrl
+        width: initialWidth,
+        height: initialHeight,
+        skin: primarySkin
       });
+
+      if (typeof viewer.loadSkin === 'function') {
+        viewer.loadSkin(primarySkin).catch(() => {
+          console.warn(`Primary skin load failed for ${id}, applying fallback skin.`);
+          viewer.loadSkin(fallbackSkin);
+        });
+      }
 
       enableViewerControls(viewer);
       viewer.autoRotate = false;
@@ -155,21 +204,30 @@ function initMinecraftViewers() {
     }
   };
 
-  setup('java', 'walk', '/minecraft.png');
-  setup('bedrock', 'run', '/minecraft.png');
-  setup('multicraft', 'run', '/multicraft.png');
+  setup('java', 'minecraft.png');
+  setup('bedrock', 'minecraft.png');
+  setup('multicraft', 'multicraft.png');
 
   const handleResize = () => {
     Object.keys(minecraftViewers).forEach(key => {
       const v = minecraftViewers[key];
       if (v && v.canvas && v.canvas.parentElement) {
-        v.width = v.canvas.parentElement.clientWidth;
-        v.height = v.canvas.parentElement.clientHeight;
+        const w = v.canvas.parentElement.clientWidth;
+        const h = v.canvas.parentElement.clientHeight;
+        if (w > 0 && h > 0) {
+          if (typeof v.setSize === 'function') {
+            v.setSize(w, h);
+          } else {
+            v.width = w;
+            v.height = h;
+          }
+        }
       }
     });
   };
   window.addEventListener('resize', handleResize);
-  setTimeout(handleResize, 150);
+  setTimeout(handleResize, 100);
+  setTimeout(handleResize, 500);
 }
 
 // Toggle run/stop handler for minecraft page
