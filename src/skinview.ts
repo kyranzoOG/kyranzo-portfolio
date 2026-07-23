@@ -79,22 +79,6 @@ export function createKyranzoSkinPNG(): string {
 
 (window as any).createKyranzoSkinPNG = createKyranzoSkinPNG;
 
-function enableViewerControls(viewer: any) {
-  try {
-    if (typeof (skinview3d as any).createOrbitControls === 'function') {
-      (skinview3d as any).createOrbitControls(viewer);
-    } else if (viewer.controls) {
-      if ('enableZoom' in viewer.controls) {
-        viewer.controls.enableZoom = false;
-      }
-    } else if (typeof (skinview3d as any).OrbitControls === 'function') {
-      new (skinview3d as any).OrbitControls(viewer.camera, viewer.canvas);
-    }
-  } catch (e) {
-    console.warn('Controls setup warning:', e);
-  }
-}
-
 // Helper to resolve skin file URLs correctly relative to current page location
 function getSkinUrl(filename: string): string {
   if (!filename) return createKyranzoSkinPNG();
@@ -104,6 +88,24 @@ function getSkinUrl(filename: string): string {
   const pathname = window.location.pathname;
   const isSubdir = pathname.includes('/avatars') || pathname.includes('/connections');
   return isSubdir ? `../${cleanName}` : `./${cleanName}`;
+}
+
+// Safely enable orbit controls on SkinViewer
+function enableViewerControls(viewer: any) {
+  try {
+    if (viewer && viewer.controls) {
+      if ('enableZoom' in viewer.controls) {
+        viewer.controls.enableZoom = false;
+      }
+      if ('enableRotate' in viewer.controls) {
+        viewer.controls.enableRotate = true;
+      }
+    } else if (typeof (skinview3d as any).createOrbitControls === 'function') {
+      (skinview3d as any).createOrbitControls(viewer);
+    }
+  } catch (e) {
+    console.warn('Controls setup warning:', e);
+  }
 }
 
 // Auto-initialize index gateway viewer if element present
@@ -117,7 +119,6 @@ function initGatewayViewer() {
     const initialHeight = parent?.clientHeight || 400;
 
     const primarySkin = getSkinUrl('minecraft.png');
-    const fallbackSkin = createKyranzoSkinPNG();
 
     const viewer = new skinview3d.SkinViewer({
       canvas: canvas,
@@ -126,17 +127,14 @@ function initGatewayViewer() {
       skin: primarySkin
     });
 
-    // Handle skin loading failure by falling back to procedural Kyranzo skin
-    if (typeof viewer.loadSkin === 'function') {
-      viewer.loadSkin(primarySkin).catch(() => {
-        console.warn('Primary skin load failed, applying fallback skin.');
-        viewer.loadSkin(fallbackSkin);
-      });
-    }
-
     enableViewerControls(viewer);
-    viewer.autoRotate = false;
-    viewer.animation = null;
+    viewer.autoRotate = true;
+    viewer.autoRotateSpeed = 0.6;
+
+    if (typeof skinview3d.WalkingAnimation === 'function') {
+      viewer.animation = new skinview3d.WalkingAnimation();
+      viewer.animation.speed = 0.5;
+    }
 
     const handleResize = () => {
       if (canvas.parentElement) {
@@ -178,7 +176,6 @@ function initMinecraftViewers() {
       const initialHeight = parent?.clientHeight || 380;
 
       const primarySkin = getSkinUrl(defaultSkinFile);
-      const fallbackSkin = createKyranzoSkinPNG();
 
       const viewer = new skinview3d.SkinViewer({
         canvas: canvas,
@@ -186,13 +183,6 @@ function initMinecraftViewers() {
         height: initialHeight,
         skin: primarySkin
       });
-
-      if (typeof viewer.loadSkin === 'function') {
-        viewer.loadSkin(primarySkin).catch(() => {
-          console.warn(`Primary skin load failed for ${id}, applying fallback skin.`);
-          viewer.loadSkin(fallbackSkin);
-        });
-      }
 
       enableViewerControls(viewer);
       viewer.autoRotate = false;
