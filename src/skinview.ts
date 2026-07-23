@@ -1,3 +1,4 @@
+import './index.css';
 import * as skinview3d from 'skinview3d';
 
 // Attach to window so any legacy or inline scripts can access it safely
@@ -108,8 +109,6 @@ function enableViewerControls(viewer: any) {
       if ('enableRotate' in viewer.controls) {
         viewer.controls.enableRotate = true;
       }
-    } else if (typeof (skinview3d as any).createOrbitControls === 'function') {
-      (skinview3d as any).createOrbitControls(viewer);
     }
   } catch (e) {
     console.warn('Controls setup warning:', e);
