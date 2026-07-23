@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  background-color: #080b12;
+  color: #f3f4f6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom Grid Dot Background */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-dot-matrix {
+  background-image: radial-gradient(rgba(56, 130, 255, 0.18) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+/* Glassmorphism helpers */
+.glass-card {
+  background: rgba(15, 21, 35, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  background: rgba(22, 31, 51, 0.85);
+  border-color: rgba(56, 130, 255, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 130, 255, 0.15);
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 30px -5px rgba(56, 130, 255, 0.4);
+}
+
+.glow-discord:hover {
+  box-shadow: 0 0 25px rgba(88, 101, 242, 0.3);
+  border-color: rgba(88, 101, 242, 0.5);
+}
+
+.glow-youtube:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+  border-color: rgba(255, 0, 0, 0.5);
+}
+
+.glow-spotify:hover {
+  box-shadow: 0 0 25px rgba(29, 185, 84, 0.3);
+  border-color: rgba(29, 185, 84, 0.5);
+}
+
+.glow-github:hover {
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.glow-facebook:hover {
+  box-shadow: 0 0 25px rgba(24, 119, 242, 0.3);
+  border-color: rgba(24, 119, 242, 0.5);
+}
+
+.glow-gitlab:hover {
+  box-shadow: 0 0 25px rgba(252, 109, 38, 0.3);
+  border-color: rgba(252, 109, 38, 0.5);
+}
+
+.glow-twitch:hover {
+  box-shadow: 0 0 25px rgba(145, 70, 255, 0.3);
+  border-color: rgba(145, 70, 255, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080b12;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f293d;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3882ff;
+}
+
+/* Keyframes */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.animate-pulse-slow {
+  animation: pulseGlow 6s infinite ease-in-out;
+}
+

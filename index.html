@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kyranzo</title>
+    <meta name="description" content="Official portfolio and profile hub of kyranzo (kyranzoOG / kyranzoog). Explore social connections, active gaming platforms, and 3D character avatars." />
+    <meta name="keywords" content="kyranzo, kyranzoOG, kyranzoog, kyranzo portfolio, kyranzo profile, kyranzo minecraft, kyranzo discord, kyranzo youtube" />
+    <meta name="author" content="kyranzo" />
+    <meta property="og:title" content="kyranzo" />
+    <meta property="og:description" content="Official portfolio and profile hub of kyranzo (kyranzoOG / kyranzoog). Explore social connections, active gaming platforms, and 3D character avatars." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="kyranzo" />
+    <meta name="twitter:description" content="Official portfolio and profile hub of kyranzo (kyranzoOG / kyranzoog)." />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "kyranzo",
+      "alternateName": ["kyranzoOG", "kyranzoog"],
+      "url": "https://kyranzo.site",
+      "sameAs": [
+        "https://github.com/kyranzoOG",
+        "https://www.youtube.com/channel/UCYpw-YGgO3-NLCZ-J88PiRw",
+        "https://www.facebook.com/profile.php?id=61591506484298",
+        "https://open.spotify.com/user/314q2xmtpeyfw43khb2ys2smf7fi",
+        "https://gitlab.com/kyranzo",
+        "https://www.twitch.tv/kyranzo"
+      ]
+    }
+    </script>
+    <!-- Tailwind CSS import -->
+    <link rel="stylesheet" href="/src/index.css" />
+    <!-- skinview3d bundled module -->
+    <script type="module" src="/src/skinview.ts"></script>
+  </head>
+  <body class="bg-[#080b12] text-gray-100 min-h-screen bg-dot-matrix relative overflow-x-hidden flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- Background glowing ambient spots -->
+    <div class="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[140px] pointer-events-none animate-pulse-slow"></div>
+    <div class="fixed bottom-10 right-10 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- Header Section -->
+    <header class="pt-4 max-w-6xl mx-auto w-full text-center relative z-10"></header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 my-auto py-6 relative z-10 w-full space-y-12">
+
+      <!-- Hero Profile Card (Directly Matching Image 1) -->
+      <section id="profile-card" class="relative rounded-3xl p-6 sm:p-10 bg-[#0c1220]/90 border border-white/10 shadow-2xl overflow-hidden backdrop-blur-xl">
+        <!-- Pixel Grid Graphic Overlay at bottom right -->
+        <div class="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/5 bg-grid-pattern pointer-events-none rounded-tl-full border-t border-l border-white/5"></div>
+
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0">
+          
+          <!-- Left 3D Character Box (Sky Blue Container) -->
+          <div class="w-full lg:w-[360px] h-[420px] bg-[#3882ff] bg-cover bg-center rounded-2xl relative flex items-center justify-center p-2 shadow-xl glow-blue overflow-hidden group" style="background-image: url('/homeavatarsbg.png');">
+            <!-- Canvas container for skinview3d -->
+            <canvas id="gateway-skin-canvas" class="w-full h-full cursor-grab active:cursor-grabbing z-10"></canvas>
+            
+            <!-- Controls helper hint -->
+            <div class="absolute bottom-3 left-3 right-3 z-20 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg text-[11px] text-white/90 flex items-center justify-between pointer-events-none transition-opacity duration-300 opacity-80 group-hover:opacity-100">
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                Drag to Rotate 3D Model
+              </span>
+              <span class="text-blue-200 font-mono text-[10px]">3D WebGL</span>
+            </div>
+          </div>
+
+          <!-- Right Dark Glass Info Card (Overlapping layout) -->
+          <div class="w-full lg:w-[560px] glass-card rounded-2xl p-6 sm:p-8 lg:-ml-12 relative z-20 border border-white/15 shadow-2xl space-y-5">
+            <div class="space-y-1">
+              <h2 class="text-4xl sm:text-5xl font-black text-white tracking-tight">kyranzo</h2>
+              <p class="text-blue-300/90 text-sm font-medium tracking-wide">gamer/game dev</p>
+            </div>
+
+            <div class="pt-2">
+              <h3 class="text-xs font-black uppercase tracking-widest text-gray-400 mb-2 flex items-center gap-2">
+                <span class="w-2 h-0.5 bg-blue-500 rounded"></span>
+                BIO
+              </h3>
+              <p class="text-gray-300 text-sm sm:text-base leading-relaxed font-normal">
+                Game developer and vibe coder building digital worlds from scratch.
+                I spend my time crafting unique experiences, playing video games, and exploring voxel-based worlds.
+              </p>
+            </div>
+
+            <!-- Profile Action Buttons -->
+            <div class="pt-4 flex flex-wrap items-center gap-3">
+              <a href="/connections/" class="px-6 py-2.5 rounded-full bg-[#3882ff]/20 hover:bg-[#3882ff]/40 text-[#6db2ff] border border-[#3882ff]/50 font-semibold text-xs sm:text-sm tracking-wide transition-all duration-200 hover:scale-105 active:scale-95 inline-flex items-center gap-2 shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                connection
+              </a>
+              <a href="/avatars/" class="px-6 py-2.5 rounded-full bg-[#3882ff]/20 hover:bg-[#3882ff]/40 text-[#6db2ff] border border-[#3882ff]/50 font-semibold text-xs sm:text-sm tracking-wide transition-all duration-200 hover:scale-105 active:scale-95 inline-flex items-center gap-2 shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                my avatar
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Navigation Gateway Cards (PRD 1 Requirement) -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+        
+        <!-- Card 1: Connections & Accounts -->
+        <a href="/connections/" class="group glass-card glass-card-hover rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-bl-full pointer-events-none group-hover:bg-blue-500/20 transition-all"></div>
+          
+          <div class="space-y-4 relative z-10">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            </div>
+            
+            <div>
+              <h3 class="text-2xl font-bold text-white group-hover:text-blue-300 transition-colors">connection</h3>
+              <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                Explore my profiles on Discord, YouTube, Spotify, GitHub, Facebook, GitLab, and Twitch.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-blue-400 group-hover:text-blue-300">
+            <span>Explore Profiles</span>
+            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </div>
+        </a>
+
+        <!-- Card 2: 3D Characters & Game IDs -->
+        <a href="/avatars/" class="group glass-card glass-card-hover rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-bl-full pointer-events-none group-hover:bg-cyan-500/20 transition-all"></div>
+          
+          <div class="space-y-4 relative z-10">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+            </div>
+
+            <div>
+              <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">my avatar</h3>
+              <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                Interactive 3D preview of my Java, Bedrock, and MultiCraft skins with live WebGL animations.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-cyan-400 group-hover:text-cyan-300">
+            <span>chech out avatars</span>
+            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </div>
+        </a>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 text-center text-xs text-gray-500 border-t border-white/5 relative z-10">
+      <p>© 2026 kyranzo</p>
+    </footer>
+  </body>
+</html>
+
+
