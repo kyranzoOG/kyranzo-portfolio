@@ -21,6 +21,7 @@ function cleanUrlsPlugin(): Plugin {
 
 export default defineConfig(() => {
   return {
+    base: './',
     plugins: [react(), tailwindcss(), cleanUrlsPlugin()],
     resolve: {
       alias: {
