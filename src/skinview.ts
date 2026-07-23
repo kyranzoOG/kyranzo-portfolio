@@ -85,9 +85,17 @@ function getSkinUrl(filename: string): string {
   if (filename.startsWith('data:')) return filename;
 
   const cleanName = filename.replace(/^\//, '');
-  const pathname = window.location.pathname;
-  const isSubdir = pathname.includes('/avatars') || pathname.includes('/connections');
-  return isSubdir ? `../${cleanName}` : `./${cleanName}`;
+
+  let href = window.location.href;
+  // Ensure href ends with a trailing slash if it's a directory path (without .html)
+  if (!href.endsWith('/') && !href.endsWith('.html')) {
+    href += '/';
+  }
+
+  const isSubdir = href.includes('/avatars/') || href.includes('/connections/');
+  const baseUrl = new URL(isSubdir ? '../' : './', href).href;
+
+  return new URL(cleanName, baseUrl).href;
 }
 
 // Safely enable orbit controls on SkinViewer
@@ -126,6 +134,13 @@ function initGatewayViewer() {
       height: initialHeight,
       skin: primarySkin
     });
+
+    if (typeof (viewer as any).loadSkin === 'function') {
+      (viewer as any).loadSkin(primarySkin).catch((err: any) => {
+        console.warn('Primary skin load failed, falling back to procedural skin:', err);
+        (viewer as any).loadSkin(createKyranzoSkinPNG()).catch(() => {});
+      });
+    }
 
     enableViewerControls(viewer);
     viewer.autoRotate = true;
@@ -183,6 +198,13 @@ function initMinecraftViewers() {
         height: initialHeight,
         skin: primarySkin
       });
+
+      if (typeof (viewer as any).loadSkin === 'function') {
+        (viewer as any).loadSkin(primarySkin).catch((err: any) => {
+          console.warn(`Primary skin load failed for ${id}, falling back:`, err);
+          (viewer as any).loadSkin(createKyranzoSkinPNG()).catch(() => {});
+        });
+      }
 
       enableViewerControls(viewer);
       viewer.autoRotate = false;
